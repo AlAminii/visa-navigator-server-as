@@ -72,11 +72,22 @@ query = {UserEmail: email}
         UserEmail: newVisa.UserEmail
 
       }
-      console.log(newVisa, "add new visa", UserEmail);
+      console.log( "add new visa", visa);
       const result = await visaCollection.insertOne(visa)
       res.send(result)
     
     });
+
+    app.delete("/visa/:id", async(req,res)=>{
+
+      const id = req.params.id;
+      console.log('delete id', id)
+      const query = {_id: new ObjectId(id)}
+      const result = await visaCollection.deleteOne(query)
+      res.send(result)
+    })
+
+
     // 
 
     app.get("/applyvisa", async(req,res)=>{
@@ -90,6 +101,30 @@ query = {UserEmail: email}
       console.log('new apply', newApply)
       const result = await applyVisaCollection.insertOne(newApply)
       res.send(result)
+    })
+
+    app.put('/visa/:id', async(req,res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const options = {upsert:true}
+      const updateVisa = req.body;
+
+      const updateDoc = {
+    $set: {
+      img: updateVisa.img,
+      country: updateVisa.country,
+      visaType: updateVisa.visaType,
+      time: updateVisa.time,
+      description: updateVisa.description,
+      age: updateVisa.age,
+      fee: updateVisa.fee,
+      validity: updateVisa.validity,
+      method: updateVisa.method,
+    },
+  };
+      const result = await visaCollection.updateOne(filter, updateDoc,options)
+      res.send(result)
+    
     })
 
     app.delete("/applyvisa/:id",async(req,res)=>{

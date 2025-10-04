@@ -3,8 +3,7 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
-// visaNavigator
-// 9WEMpp6B2a9XdYJU
+
 
 app.use(cors());
 app.use(express.json());
@@ -72,7 +71,7 @@ query = {UserEmail: email}
         UserEmail: newVisa.UserEmail
 
       }
-      console.log( "add new visa", visa);
+      // console.log( "add new visa", visa);
       const result = await visaCollection.insertOne(visa)
       res.send(result)
     
@@ -81,7 +80,7 @@ query = {UserEmail: email}
     app.delete("/visa/:id", async(req,res)=>{
 
       const id = req.params.id;
-      console.log('delete id', id)
+      // console.log('delete id', id)
       const query = {_id: new ObjectId(id)}
       const result = await visaCollection.deleteOne(query)
       res.send(result)
@@ -98,7 +97,7 @@ query = {UserEmail: email}
 
     app.post("/applyvisa", async(req,res)=>{
       const newApply = req.body;
-      console.log('new apply', newApply)
+      // console.log('new apply', newApply)
       const result = await applyVisaCollection.insertOne(newApply)
       res.send(result)
     })
@@ -129,7 +128,7 @@ query = {UserEmail: email}
 
     app.delete("/applyvisa/:id",async(req,res)=>{
       const id = req.params.id;
-      console.log('delete id', id)
+      // console.log('delete id', id)
       const query = {_id: new ObjectId(id)}
       const result = await applyVisaCollection.deleteOne(query)
       res.send(result)
@@ -140,7 +139,7 @@ query = {UserEmail: email}
 
     app.post("/users",async(req,res)=>{
       const newUser = req.body;
-      console.log("new user create", newUser);
+      // console.log("new user create", newUser);
       const result = await userCollection.insertOne(newUser)
       res.send(result)
     })
